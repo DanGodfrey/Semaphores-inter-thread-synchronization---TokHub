@@ -31,9 +31,15 @@ public class HubThread extends Thread
 			  // Forward to other cable
 			  cableToForward.hubTransmit(frames);
 		  }
-		  catch (InterruptedException ex) { break; }
-		  if(this.isInterrupted()) break;  // break out of loop and terminate the thread.
+		  catch (InterruptedException ex) {
+			  break; 
+		  }
+		  if(this.isInterrupted())
+		  {
+			  break;  // break out of loop and terminate the thread.
+		  }
 	   }
 	   System.out.println("Hub thread" + this.getId() + " terminated");
+	   System.out.flush();
 	}
 }

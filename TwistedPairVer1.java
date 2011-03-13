@@ -10,6 +10,7 @@ public class TwistedPairVer1
 	private int tpId;   // identifier for twisted pair
 	private final int maxBufLen = 60;  // Maximum size of string to represent xmission accross twisted pair
 	private String buf;   // String to represent a twisted pair xmission, when empty it references an Empty String ""
+	private boolean isInterupted = false;
 	/**
 	 * Constructor
 	 */
@@ -29,15 +30,20 @@ public class TwistedPairVer1
 	public synchronized void xmit(String msg) throws InterruptedException
 	{
 		// Can we xmit?
-		if(msg.length() > (maxBufLen - buf.length()) )
+		
+		//For this version, length is not limited. Therefore the check is omitted 
+		
+		/*if(msg.length() > (maxBufLen - buf.length()) )
 		{  // Print error message - should not ever happen.
 			logMsg("Exceeding buffer length");
-		}
+		}*/
+		
+	
 
 		// ---- Critical Section ------------------------------------
 		buf = buf+msg;  // appends new frame to the twisted pair
 		//-----------------------------------------------------------
-
+		this.notifyAll();
 
 	}
 	/*
@@ -47,15 +53,24 @@ public class TwistedPairVer1
 	{
 		String msgs;  // for returning string in twisted pair
 		
-
+		while (buf == "" && !isInterupted)
+		{	
+			try
+			{
+				wait();
+			}
+			catch (InterruptedException ex)
+			{
+				 System.out.println("TwistedPair" + this.tpId + " terminated");
+				 throw ex; 
+			}
+		}
 
 		// ---- Critical Section ------------------------------------
 		msgs = buf;
 		buf = "";
 		//-----------------------------------------------------------
 		
-
-
 		return(msgs);
 	}
 	

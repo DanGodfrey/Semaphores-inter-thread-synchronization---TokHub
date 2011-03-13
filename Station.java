@@ -99,5 +99,6 @@ public class Station extends Thread
 	       if(this.isInterrupted()) break;  // have been interrupted - break out of loop and terminate
 		} while(true);
 	    System.out.println("Station " + identifier + " terminated");
+	    System.out.flush();
 	}
 }

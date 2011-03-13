@@ -75,7 +75,10 @@ public class Hub
 		   catch (InterruptedException e) { System.out.println("Sleep interrupted");}
 		   
 		   // Terminate all threads
-		   for(i = 0 ; i < 8 ; i++) threadReferences[i].interrupt();
+		   for(i = 0 ; i < 8 ; i++) 
+		   {
+			   threadReferences[i].interrupt();
+		   }
 		   // Wait on all threads
 		   try { for(i = 0 ; i < 8 ; i++) threadReferences[i].join(); }
 		   catch(InterruptedException e) { }
