@@ -7,7 +7,7 @@ public class Cable
 {
 	private TwistedPairVer1 txPair;   // For xmitting frames to hub
 	private TwistedPairVer1 rxPair;   // For recving frames from hub
-	private int cableNum;   // identifier for cable - for logging purposes
+	
 	/**
 	 * Constructor
 	 */
@@ -15,7 +15,6 @@ public class Cable
 	{
 		txPair = new TwistedPairVer1();
 		rxPair = new TwistedPairVer1();
-		cableNum = num;
 	}
 
 	/*---------------------------------------------
